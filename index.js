@@ -1,4 +1,4 @@
-import runServer from './server.js';
+import runServer from "./server.js";
 
 function info() {
   console.log("INFO");
@@ -11,12 +11,11 @@ function info() {
     tail: "default",
   };
 }
-
+var test = 1;
 function start(gameState) {
   console.log("GAME START");
 }
-//edw komple?
-//da komple
+
 function end(gameState) {
   console.log("GAME OVER\n");
 }
@@ -26,7 +25,7 @@ function move(gameState) {
     up: true,
     down: true,
     left: true,
-    right: true
+    right: true,
   };
 
   const myHead = gameState.you.body[0];
@@ -53,7 +52,7 @@ function move(gameState) {
     if (!isMoveSafe[move]) continue;
 
     const nextPos = getNextCoord(myHead, move);
-    if (myBody.some(part => part.x === nextPos.x && part.y === nextPos.y)) {
+    if (myBody.some((part) => part.x === nextPos.x && part.y === nextPos.y)) {
       isMoveSafe[move] = false;
     }
   }
@@ -73,11 +72,33 @@ function move(gameState) {
     }
   }
 
+  // Avoid head-to-head collisions
+  const myLength = gameState.you.length;
+
+  for (const snake of enemies) {
+    if (snake.id === gameState.you.id) continue; // Skip yourself
+
+    const enemyHead = snake.head;
+    const enemyLength = snake.length;
+
+    for (const move in isMoveSafe) {
+      if (!isMoveSafe[move]) continue;
+
+      const nextPos = getNextCoord(myHead, move);
+      const dx = Math.abs(nextPos.x - enemyHead.x);
+      const dy = Math.abs(nextPos.y - enemyHead.y);
+
+      if (dx + dy === 1 && enemyLength >= myLength) {
+        isMoveSafe[move] = false;
+      }
+    }
+  }
+
   // Basic food targeting
   const food = gameState.board.food;
   let nextMove = null;
 
-  const safeMoves = Object.keys(isMoveSafe).filter(move => isMoveSafe[move]);
+  const safeMoves = Object.keys(isMoveSafe).filter((move) => isMoveSafe[move]);
   if (safeMoves.length === 0) {
     console.log(`MOVE ${gameState.turn}: No safe moves detected! Moving down`);
     return { move: "down" };
@@ -89,7 +110,8 @@ function move(gameState) {
 
     for (const move of safeMoves) {
       const newPos = getNextCoord(myHead, move);
-      const dist = Math.abs(newPos.x - target.x) + Math.abs(newPos.y - target.y);
+      const dist =
+        Math.abs(newPos.x - target.x) + Math.abs(newPos.y - target.y);
       if (dist < minDist) {
         minDist = dist;
         nextMove = move;
@@ -118,5 +140,5 @@ runServer({
   info: info,
   start: start,
   move: move,
-  end: end
+  end: end,
 });
