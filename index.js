@@ -72,6 +72,28 @@ function move(gameState) {
     }
   }
 
+   // Avoid head-to-head collisions
+ const myLength = gameState.you.length;
+
+ for (const snake of enemies) {
+  if (snake.id === gameState.you.id) continue; // Skip yourself
+
+   const enemyHead = snake.head;
+   const enemyLength = snake.length;
+
+   for (const move in isMoveSafe) {
+     if (!isMoveSafe[move]) continue;
+
+     const nextPos = getNextCoord(myHead, move);
+     const dx = Math.abs(nextPos.x - enemyHead.x);
+     const dy = Math.abs(nextPos.y - enemyHead.y);
+
+     if (dx + dy === 1 && enemyLength >= myLength) {
+       isMoveSafe[move] = false;
+     }
+   }
+ }
+
   // Basic food targeting
   const food = gameState.board.food;
   let nextMove = null;
