@@ -11,7 +11,7 @@ function info() {
     tail: "default",
   };
 }
-var test = 1;
+
 function start(gameState) {
   console.log("GAME START");
 }
@@ -104,16 +104,27 @@ function move(gameState) {
     return { move: "down" };
   }
 
-  if (food.length > 0) {
-    const target = food[0];
-    let minDist = Infinity;
+  if (food.length > 0 && safeMoves.length > 0) {
+    let closestFood = null;
+    let minFoodDist = Infinity;
 
+    // Step 1: Find the closest food
+    for (const f of food) {
+      const dist = Math.abs(myHead.x - f.x) + Math.abs(myHead.y - f.y);
+      if (dist < minFoodDist) {
+        minFoodDist = dist;
+        closestFood = f;
+      }
+    }
+
+    // Step 2: Pick the move that brings us closest to that food
+    let minMoveDist = Infinity;
     for (const move of safeMoves) {
       const newPos = getNextCoord(myHead, move);
       const dist =
-        Math.abs(newPos.x - target.x) + Math.abs(newPos.y - target.y);
-      if (dist < minDist) {
-        minDist = dist;
+        Math.abs(newPos.x - closestFood.x) + Math.abs(newPos.y - closestFood.y);
+      if (dist < minMoveDist) {
+        minMoveDist = dist;
         nextMove = move;
       }
     }
@@ -142,3 +153,4 @@ runServer({
   move: move,
   end: end,
 });
+
