@@ -16,7 +16,7 @@ function start(gameState) {
   console.log("GAME START");
 }
 //edw komple?
-
+//da komple
 function end(gameState) {
   console.log("GAME OVER\n");
 }
