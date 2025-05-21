@@ -2,7 +2,6 @@ import runServer from "./server.js";
 
 function info() {
   console.log("INFO");
-
   return {
     apiversion: "1",
     author: "sifis",
@@ -30,6 +29,11 @@ function move(gameState) {
 
   const myHead = gameState.you.body[0];
   const myNeck = gameState.you.body[1];
+  const boardWidth = gameState.board.width;
+  const boardHeight = gameState.board.height;
+  const myBody = gameState.you.body;
+  const enemies = gameState.board.snakes;
+  const food = gameState.board.food;
 
   // Prevent moving backwards into neck
   if (myNeck.x < myHead.x) isMoveSafe.left = false;
@@ -38,34 +42,45 @@ function move(gameState) {
   else if (myNeck.y > myHead.y) isMoveSafe.up = false;
 
   // Prevent moving out of bounds
-  const boardWidth = gameState.board.width;
-  const boardHeight = gameState.board.height;
-
   if (myHead.x === 0) isMoveSafe.left = false;
   if (myHead.x === boardWidth - 1) isMoveSafe.right = false;
   if (myHead.y === 0) isMoveSafe.down = false;
   if (myHead.y === boardHeight - 1) isMoveSafe.up = false;
 
   // Avoid self collision
-  const myBody = gameState.you.body;
   for (const move in isMoveSafe) {
     if (!isMoveSafe[move]) continue;
-
     const nextPos = getNextCoord(myHead, move);
     if (myBody.some((part) => part.x === nextPos.x && part.y === nextPos.y)) {
       isMoveSafe[move] = false;
     }
   }
 
-  // Avoid other snakes
-  const enemies = gameState.board.snakes;
+  // Avoid other snakes (with tail exception)
+  function isTail(segment, snake) {
+    const tail = snake.body[snake.body.length - 1];
+    return segment.x === tail.x && segment.y === tail.y;
+  }
+
+  function isEating(snake) {
+    return food.some((f) => f.x === snake.head.x && f.y === snake.head.y);
+  }
+
   for (const move in isMoveSafe) {
     if (!isMoveSafe[move]) continue;
 
     const nextPos = getNextCoord(myHead, move);
+
     for (const snake of enemies) {
       for (const segment of snake.body) {
-        if (segment.x === nextPos.x && segment.y === nextPos.y) {
+        const isEnemyTail = isTail(segment, snake);
+        const enemyIsEating = isEating(snake);
+
+        if (
+          segment.x === nextPos.x &&
+          segment.y === nextPos.y &&
+          (!isEnemyTail || enemyIsEating)
+        ) {
           isMoveSafe[move] = false;
         }
       }
@@ -74,16 +89,13 @@ function move(gameState) {
 
   // Avoid head-to-head collisions
   const myLength = gameState.you.length;
-
   for (const snake of enemies) {
-    if (snake.id === gameState.you.id) continue; // Skip yourself
-
+    if (snake.id === gameState.you.id) continue;
     const enemyHead = snake.head;
     const enemyLength = snake.length;
 
     for (const move in isMoveSafe) {
       if (!isMoveSafe[move]) continue;
-
       const nextPos = getNextCoord(myHead, move);
       const dx = Math.abs(nextPos.x - enemyHead.x);
       const dy = Math.abs(nextPos.y - enemyHead.y);
@@ -94,21 +106,32 @@ function move(gameState) {
     }
   }
 
-  // Basic food targeting
-  const food = gameState.board.food;
-  let nextMove = null;
+  // Safety fallback to prevent out-of-bounds move
+  for (const move in isMoveSafe) {
+    if (!isMoveSafe[move]) continue;
+    const nextPos = getNextCoord(myHead, move);
+    if (
+      nextPos.x < 0 ||
+      nextPos.y < 0 ||
+      nextPos.x >= boardWidth ||
+      nextPos.y >= boardHeight
+    ) {
+      isMoveSafe[move] = false;
+    }
+  }
 
+  // Basic food targeting
+  let nextMove = null;
   const safeMoves = Object.keys(isMoveSafe).filter((move) => isMoveSafe[move]);
   if (safeMoves.length === 0) {
-    console.log(`MOVE ${gameState.turn}: No safe moves detected! Moving down`);
+    console.log(`MOVE \${gameState.turn}: No safe moves detected! Moving down`);
     return { move: "down" };
   }
 
-  if (food.length > 0 && safeMoves.length > 0) {
+  if (food.length > 0) {
     let closestFood = null;
     let minFoodDist = Infinity;
 
-    // Step 1: Find the closest food
     for (const f of food) {
       const dist = Math.abs(myHead.x - f.x) + Math.abs(myHead.y - f.y);
       if (dist < minFoodDist) {
@@ -117,7 +140,6 @@ function move(gameState) {
       }
     }
 
-    // Step 2: Pick the move that brings us closest to that food
     let minMoveDist = Infinity;
     for (const move of safeMoves) {
       const newPos = getNextCoord(myHead, move);
@@ -134,7 +156,7 @@ function move(gameState) {
     nextMove = safeMoves[Math.floor(Math.random() * safeMoves.length)];
   }
 
-  console.log(`MOVE ${gameState.turn}: ${nextMove}`);
+  console.log(`MOVE \${gameState.turn}: \${nextMove}`);
   return { move: nextMove };
 }
 
@@ -153,4 +175,3 @@ runServer({
   move: move,
   end: end,
 });
-
