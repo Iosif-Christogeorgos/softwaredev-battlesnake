@@ -1,4 +1,4 @@
-import runServer from "./server.js";
+const runServer = require("./server");
 
 function info() {
   console.log("INFO");
@@ -169,9 +169,13 @@ function getNextCoord(position, move) {
   return { x, y };
 }
 
-runServer({
-  info: info,
-  start: start,
-  move: move,
-  end: end,
-});
+module.exports = { move };
+
+if (require.main === module) {
+  runServer({
+    info: info,
+    start: start,
+    move: move,
+    end: end,
+  });
+}

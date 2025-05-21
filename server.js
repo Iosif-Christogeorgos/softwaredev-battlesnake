@@ -1,6 +1,6 @@
-import express from 'express';
+const express = require("express");
 
-export default function runServer(handlers) {
+module.exports = function runServer(handlers) {
   const app = express();
   app.use(express.json());
 
@@ -22,15 +22,15 @@ export default function runServer(handlers) {
     res.send("ok");
   });
 
-  app.use(function(req, res, next) {
+  app.use(function (req, res, next) {
     res.set("Server", "battlesnake/replit/starter-snake-javascript");
     next();
-  })
+  });
 
-  const host = '0.0.0.0';
+  const host = "0.0.0.0";
   const port = process.env.PORT || 8000;
 
   app.listen(port, host, () => {
-    console.log(`Running Battlesnake at http://${host}:${port}...`)
+    console.log(`Running Battlesnake at http://${host}:${port}...`);
   });
-}
+};
