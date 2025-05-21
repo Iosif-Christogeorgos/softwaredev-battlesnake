@@ -35,19 +35,16 @@ function move(gameState) {
   const enemies = gameState.board.snakes;
   const food = gameState.board.food;
 
-  // Prevent moving backwards into neck
   if (myNeck.x < myHead.x) isMoveSafe.left = false;
   else if (myNeck.x > myHead.x) isMoveSafe.right = false;
   else if (myNeck.y < myHead.y) isMoveSafe.down = false;
   else if (myNeck.y > myHead.y) isMoveSafe.up = false;
 
-  // Prevent moving out of bounds
   if (myHead.x === 0) isMoveSafe.left = false;
   if (myHead.x === boardWidth - 1) isMoveSafe.right = false;
   if (myHead.y === 0) isMoveSafe.down = false;
   if (myHead.y === boardHeight - 1) isMoveSafe.up = false;
 
-  // Avoid self collision
   for (const move in isMoveSafe) {
     if (!isMoveSafe[move]) continue;
     const nextPos = getNextCoord(myHead, move);
@@ -56,7 +53,6 @@ function move(gameState) {
     }
   }
 
-  // Avoid other snakes (with tail exception)
   function isTail(segment, snake) {
     const tail = snake.body[snake.body.length - 1];
     return segment.x === tail.x && segment.y === tail.y;
@@ -87,7 +83,6 @@ function move(gameState) {
     }
   }
 
-  // Avoid head-to-head collisions
   const myLength = gameState.you.length;
   for (const snake of enemies) {
     if (snake.id === gameState.you.id) continue;
@@ -106,7 +101,6 @@ function move(gameState) {
     }
   }
 
-  // Safety fallback to prevent out-of-bounds move
   for (const move in isMoveSafe) {
     if (!isMoveSafe[move]) continue;
     const nextPos = getNextCoord(myHead, move);
@@ -120,11 +114,10 @@ function move(gameState) {
     }
   }
 
-  // Basic food targeting
   let nextMove = null;
   const safeMoves = Object.keys(isMoveSafe).filter((move) => isMoveSafe[move]);
   if (safeMoves.length === 0) {
-    console.log(`MOVE \${gameState.turn}: No safe moves detected! Moving down`);
+    console.log(`MOVE ${gameState.turn}: No safe moves detected! Moving down`);
     return { move: "down" };
   }
 
@@ -156,7 +149,7 @@ function move(gameState) {
     nextMove = safeMoves[Math.floor(Math.random() * safeMoves.length)];
   }
 
-  console.log(`MOVE \${gameState.turn}: \${nextMove}`);
+  console.log(`MOVE ${gameState.turn}: ${nextMove}`);
   return { move: nextMove };
 }
 
@@ -169,13 +162,10 @@ function getNextCoord(position, move) {
   return { x, y };
 }
 
-module.exports = { move };
-
+// ✅ Only run server if not imported by a test
 if (require.main === module) {
-  runServer({
-    info: info,
-    start: start,
-    move: move,
-    end: end,
-  });
+  runServer({ info, start, move, end });
 }
+
+// ✅ Export move() so Jest can test it
+module.exports = { move };
