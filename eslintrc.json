@@ -1,20 +1,18 @@
 {
   "env": {
     "node": true,
-    "es2021": true
+    "es2021": true,
+    "jest": true
   },
   "extends": [
     "eslint:recommended",
     "plugin:sonarjs/recommended",
     "plugin:unicorn/recommended",
     "plugin:eslint-comments/recommended",
+    "plugin:jest/recommended",
     "prettier"
   ],
-  "plugins": [
-    "sonarjs",
-    "unicorn",
-    "eslint-comments"
-  ],
+  "plugins": ["sonarjs", "unicorn", "eslint-comments", "jest"],
   "parserOptions": {
     "ecmaVersion": "latest",
     "sourceType": "module"
