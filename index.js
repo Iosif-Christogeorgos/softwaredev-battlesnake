@@ -146,7 +146,15 @@ function move(gameState) {
   }
 
   if (!nextMove) {
-    nextMove = safeMoves[Math.floor(Math.random() * safeMoves.length)];
+    let maxArea = -1;
+    for (const move of safeMoves) {
+      const pos = getNextCoord(myHead, move);
+      const area = floodFill(pos, gameState);
+      if (area > maxArea) {
+        maxArea = area;
+        nextMove = move;
+      }
+    }
   }
 
   console.log(`MOVE ${gameState.turn}: ${nextMove}`);
