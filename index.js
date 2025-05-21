@@ -169,3 +169,38 @@ if (require.main === module) {
 
 // ✅ Export move() so Jest can test it
 module.exports = { move };
+
+function floodFill(start, gameState) {
+const visited = new Set();
+const stack = [start];
+const width = gameState.board.width;
+const height = gameState.board.height;
+
+const occupied = new Set(
+gameState.board.snakes.flatMap(snake =>
+snake.body.map(p => `${p.x},${p.y}`)
+)
+);
+
+while (stack.length > 0) {
+const { x, y } = stack.pop();
+const key = `${x},${y}`;
+
+if (
+x < 0 || y < 0 || x >= width || y >= height ||
+visited.has(key) ||
+occupied.has(key)
+) continue;
+
+visited.add(key);
+
+stack.push({ x: x + 1, y });
+stack.push({ x: x - 1, y });
+stack.push({ x, y: y + 1 });
+stack.push({ x, y: y - 1 });
+}
+
+return visited.size;
+}
+
+module.exports = { move, floodFill };
