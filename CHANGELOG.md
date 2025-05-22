@@ -6,7 +6,7 @@ All notable changes to this Battlesnake project will be documented here.
 
 [1.0.1] - Iteration 3 (Week 9–11) 🔧 Hotfix
 ✨ Customization Hotfix: Updated snake appearance
-- Changed color to `#E0FFFF` (Light Cyan)
+- Changed color to `#FF5733` (Light Cyan)
 - Changed head to `nr-rocket`
 - Changed tail to `coffee`
 - Hotfix applied via `hotfix/customization` branch and merged into `main`
