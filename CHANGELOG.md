@@ -3,16 +3,13 @@ All notable changes to this Battlesnake project will be documented here.
 
 ---
 
+[1.1.0] - Iteration 3 Final Release (Week 11)
+🚀 Minor release with all major features completed
 
-[1.0.1] - Iteration 3 (Week 9–11) 🔧 Hotfix
-✨ Customization Hotfix: Updated snake appearance
-- Changed color to `#FF5733` (Light Cyan)
-- Changed head to `nr-rocket`
-- Changed tail to `coffee`
-- Hotfix applied via `hotfix/customization` branch and merged into `main`
-
-
-
+- Flood fill algorithm implemented and integrated
+- Test coverage exceeds 50% and enforced via thresholds
+- Jest test suite established for core logic and API routes
+- Hotfix customization applied and verified
 
 [1.0.0] - Iteration 2 (Week 6–8)
 [🔗 View GitHub Release](https://github.com/Iosif-Christogeorgos/softwaredev-battlesnake/releases/tag/V1.0.0)
