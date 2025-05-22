@@ -5,7 +5,7 @@ function info() {
   return {
     apiversion: "1",
     author: "sifis",
-    color: "#E0FFFF",
+    color: "#FF5733", // 🟠 new color
     head: "nr-rocket",
     tail: "coffee",
   };
