@@ -5,9 +5,9 @@ function info() {
   return {
     apiversion: "1",
     author: "sifis",
-    color: "#ebcf34",
-    head: "default",
-    tail: "default",
+    color: "#E0FFFF",
+    head: "nr-rocket",
+    tail: "coffee",
   };
 }
 
