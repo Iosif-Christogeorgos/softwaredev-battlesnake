@@ -1,11 +1,11 @@
-const runServer = require("./server");
+const createServer = require("./server");
 
 function info() {
   console.log("INFO");
   return {
     apiversion: "1",
     author: "sifis",
-    color: "#FF5733", // 🟠 new color
+    color: "#FF5733",
     head: "nr-rocket",
     tail: "coffee",
   };
@@ -170,14 +170,6 @@ function getNextCoord(position, move) {
   return { x, y };
 }
 
-// ✅ Only run server if not imported by a test
-if (require.main === module) {
-  runServer({ info, start, move, end });
-}
-
-// ✅ Export move() so Jest can test it
-module.exports = { move };
-
 function floodFill(start, gameState) {
   const visited = new Set();
   const stack = [start];
@@ -215,4 +207,15 @@ function floodFill(start, gameState) {
   return visited.size;
 }
 
+// ✅ Start the server when run directly
+if (require.main === module) {
+  const app = createServer({ info, start, move, end });
+  const host = "0.0.0.0";
+  const port = process.env.PORT || 3000;
+  app.listen(port, host, () => {
+    console.log(`Running Battlesnake at http://${host}:${port}`);
+  });
+}
+
+// ✅ Export handlers for testing
 module.exports = { move, floodFill };
