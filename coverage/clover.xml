@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<coverage generated="1747908079755" clover="3.2.0">
-  <project timestamp="1747908079755" name="All files">
-    <metrics statements="137" coveredstatements="73" conditionals="84" coveredconditionals="43" methods="20" coveredmethods="7" elements="241" coveredelements="123" complexity="0" loc="137" ncloc="137" packages="1" files="2" classes="2"/>
+<coverage generated="1748515517203" clover="3.2.0">
+  <project timestamp="1748515517203" name="All files">
+    <metrics statements="140" coveredstatements="72" conditionals="86" coveredconditionals="43" methods="21" coveredmethods="7" elements="247" coveredelements="122" complexity="0" loc="140" ncloc="140" packages="1" files="2" classes="2"/>
     <file name="index.js" path="C:\Users\olimp\Documents\GitHub\softwaredev-battlesnake\index.js">
-      <metrics statements="112" coveredstatements="70" conditionals="80" coveredconditionals="42" methods="13" coveredmethods="7"/>
+      <metrics statements="115" coveredstatements="69" conditionals="82" coveredconditionals="42" methods="14" coveredmethods="7"/>
       <line num="1" count="2" type="stmt"/>
       <line num="4" count="0" type="stmt"/>
       <line num="5" count="0" type="stmt"/>
@@ -95,27 +95,30 @@
       <line num="168" count="12" type="cond" truecount="2" falsecount="0"/>
       <line num="169" count="12" type="cond" truecount="2" falsecount="0"/>
       <line num="170" count="12" type="stmt"/>
-      <line num="174" count="2" type="cond" truecount="1" falsecount="1"/>
-      <line num="175" count="0" type="stmt"/>
-      <line num="179" count="2" type="stmt"/>
-      <line num="182" count="4" type="stmt"/>
-      <line num="183" count="4" type="stmt"/>
-      <line num="184" count="4" type="stmt"/>
-      <line num="185" count="4" type="stmt"/>
-      <line num="187" count="4" type="stmt"/>
-      <line num="189" count="3" type="stmt"/>
-      <line num="193" count="4" type="stmt"/>
-      <line num="194" count="1544" type="stmt"/>
-      <line num="195" count="1544" type="stmt"/>
-      <line num="197" count="1544" type="cond" truecount="2" falsecount="0"/>
-      <line num="205" count="1159" type="stmt"/>
-      <line num="207" count="385" type="stmt"/>
-      <line num="209" count="385" type="stmt"/>
-      <line num="210" count="385" type="stmt"/>
-      <line num="211" count="385" type="stmt"/>
-      <line num="212" count="385" type="stmt"/>
-      <line num="215" count="4" type="stmt"/>
-      <line num="218" count="2" type="stmt"/>
+      <line num="174" count="6" type="stmt"/>
+      <line num="175" count="6" type="stmt"/>
+      <line num="176" count="6" type="stmt"/>
+      <line num="177" count="6" type="stmt"/>
+      <line num="179" count="6" type="stmt"/>
+      <line num="181" count="4" type="stmt"/>
+      <line num="185" count="6" type="stmt"/>
+      <line num="186" count="1646" type="stmt"/>
+      <line num="187" count="1646" type="stmt"/>
+      <line num="189" count="1646" type="cond" truecount="2" falsecount="0"/>
+      <line num="197" count="1236" type="stmt"/>
+      <line num="199" count="410" type="stmt"/>
+      <line num="201" count="410" type="stmt"/>
+      <line num="202" count="410" type="stmt"/>
+      <line num="203" count="410" type="stmt"/>
+      <line num="204" count="410" type="stmt"/>
+      <line num="207" count="6" type="stmt"/>
+      <line num="211" count="2" type="cond" truecount="1" falsecount="1"/>
+      <line num="212" count="0" type="stmt"/>
+      <line num="213" count="0" type="stmt"/>
+      <line num="214" count="0" type="cond" truecount="0" falsecount="2"/>
+      <line num="215" count="0" type="stmt"/>
+      <line num="216" count="0" type="stmt"/>
+      <line num="221" count="2" type="stmt"/>
     </file>
     <file name="server.js" path="C:\Users\olimp\Documents\GitHub\softwaredev-battlesnake\server.js">
       <metrics statements="25" coveredstatements="3" conditionals="4" coveredconditionals="1" methods="7" coveredmethods="0"/>
