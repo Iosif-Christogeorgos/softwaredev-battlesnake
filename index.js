@@ -138,7 +138,6 @@ function move(gameState) {
     return { move: "down" };
   }
 
-  
   // Attempt to hunt smaller snakes
   let killMove = null;
 
@@ -165,7 +164,9 @@ function move(gameState) {
   }
 
   if (killMove) {
-    console.log(`MOVE ${gameState.turn}: Hunting smaller snake via ${killMove}`);
+    console.log(
+      `MOVE ${gameState.turn}: Hunting smaller snake via ${killMove}`
+    );
     return { move: killMove };
   }
 
@@ -278,4 +279,4 @@ if (require.main === module) {
 }
 
 // ✅ Export for tests and server
-module.exports = { move, floodFill };
+module.exports = { move, floodFill, info, start, end, getNextCoord };
