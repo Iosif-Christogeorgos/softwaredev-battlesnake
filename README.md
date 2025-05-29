@@ -1,96 +1,116 @@
-# Battlesnake JavaScript Starter Project
+# 🐍 Battlesnake JavaScript AI – Iteration 4
 
 ![Battlesnake Logo](https://media.battlesnake.com/social/StarterSnakeGitHubRepos_JavaScript.png)
 
-An official Battlesnake template written in JavaScript, extended and customized as part of a university project.  
+A smart AI snake built using the official JavaScript template, extended as part of our university software development project.  
 Play it at [play.battlesnake.com](https://play.battlesnake.com).
 
 ---
 
-## 🐍 About This Project
+## 📖 About This Project
 
-This Battlesnake is designed to make intelligent movement decisions using basic AI strategies such as:
+This Battlesnake uses AI logic to:
+- Avoid walls, snakes, and hazards
+- Target the closest food using Manhattan distance
+- Navigate safely using flood fill
+- Avoid dangerous head-to-head collisions
+- Soon: **Hunt and kill smaller snakes**
 
-- Collision avoidance (walls, itself, and other snakes)
-- Flood fill algorithm to evaluate safe regions
-- Manhattan distance to locate the closest food
-- Basic head-to-head evaluation logic
-
-We’ve implemented these features iteratively with clean code practices and test-driven development (TDD) using Jest.
+The project is developed incrementally using **Test-Driven Development (TDD)** and good engineering practices.
 
 ---
 
 ## 🚀 Getting Started
 
-### Run Your Battlesnake Locally
+### Local Run (or Replit)
 
-1. Clone this repo.
-2. Run:
-   ```bash
-   npm install
-   npm start
-   ```
-3. Use your `repl.co` or localhost URL to register the snake at [play.battlesnake.com](https://play.battlesnake.com).
+1. Clone the repo or open in Replit
+2. Install dependencies:
 
----
+```bash
+npm install
+```
 
-## 🛠️ Features Implemented
+3. Run the snake:
 
-✅ Avoids walls  
-✅ Avoids own body  
-✅ Avoids other snakes  
-✅ Can move into a snake's tail if safe  
-✅ Flood fill algorithm to evaluate safest path  
-✅ Eats closest food using Manhattan distance  
-✅ Starts supporting head-to-head situations  
-✅ Written using TDD with Jest  
-✅ Code linted with ESLint and formatted with Prettier  
-✅ Configured `.editorconfig`  
-✅ Versioned and tagged (`v1.0.0`)
+```bash
+node index.js
+```
+
+> You’ll see: `Running Battlesnake at http://0.0.0.0:3000`
+
+Use your Replit or localhost URL to register the snake at [play.battlesnake.com](https://play.battlesnake.com).
 
 ---
 
-## 🧪 Development
+## 🧪 Development & Testing
 
 ### Scripts
 
 ```bash
-npm start        # Starts the server
-npm test         # Runs unit tests using Jest
-npm run lint     # Runs ESLint
+npm start         # Run the server
+npm test          # Run Jest test suite
+npm test -- --coverage   # Run tests with coverage
+npm run docs      # Generate JSDoc HTML documentation
+npm run lint      # Run ESLint for code style
 ```
 
-### Linting & Formatting
+### Code Quality
 
-- ESLint: uses `eslint-plugin-sonarjs`, `unicorn`, `eslint-config-prettier`, and `eslint-plugin-eslint-comments`
-- Prettier: default formatting rules
-- EditorConfig: included for consistent editor settings
+- ✅ Written using **TDD** (Jest)
+- ✅ Static analysis via **ESLint**
+- ✅ Formatted via **Prettier**
+- ✅ Version controlled & tagged (e.g. `v1.2.0`)
+- ✅ JSDoc used for internal API documentation
+
+---
+
+## 📄 Documentation
+
+Generate and view your own HTML docs from source code:
+
+```bash
+npm run docs
+```
+
+> Output is saved in the `/docs` folder.  
+> Open `docs/index.html` in a browser to view.
+
+---
+
+## 🔄 GitHub Integration
+
+- ✅ GitHub Actions: test, lint, coverage, deploy (Railway)
+- ✅ Dependabot enabled for automated security updates
+- ✅ Project board tracks issues, tasks, and versions
 
 ---
 
 ## 📦 Tech Stack
 
 - [Node.js](https://nodejs.org/)
-- [Express](https://expressjs.com/)
+- [Express.js](https://expressjs.com/)
 - [Jest](https://jestjs.io/)
 - [ESLint](https://eslint.org/)
-- [Prettier](https://prettier.io/)
+- [JSDoc](https://jsdoc.app/)
+- [Railway](https://railway.app/) (deployment)
 
 ---
 
 ## 🧑‍💻 Team
 
-Developed by [Iosif Christogeorgos, Mihai-viorel popescu, Georgios Kokkinos],  
-As part of the CCS2430 course at Athens Tech College.
+Developed by:  
+- Iosif Christogeorgos  
+- Mihai-viorel Popescu  
+- Georgios Kokkinos  
+
+For the CCS2430 course at **Athens Tech College**
 
 ---
 
-## 📈 Project Board and Workflow
+## 📝 License
 
-Project planning and tracking is done via our [GitHub Project Board](https://github.com/users/Iosif-Christogeorgos/projects/1).
+Based on the official Battlesnake starter repo.  
+Licensed under the MIT License.
 
 ---
-
-## 📄 License
-
-This project is based on the official Battlesnake Starter Project under the MIT License.
