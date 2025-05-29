@@ -138,6 +138,37 @@ function move(gameState) {
     return { move: "down" };
   }
 
+  
+  // Attempt to hunt smaller snakes
+  let killMove = null;
+
+  for (const snake of enemies) {
+    if (snake.id === gameState.you.id) continue;
+
+    const enemyHead = snake.head;
+    const enemyLength = snake.length;
+
+    if (enemyLength >= myLength) continue;
+
+    for (const move of safeMoves) {
+      const nextPos = getNextCoord(myHead, move);
+      const dx = Math.abs(nextPos.x - enemyHead.x);
+      const dy = Math.abs(nextPos.y - enemyHead.y);
+
+      if (dx + dy === 1) {
+        killMove = move;
+        break;
+      }
+    }
+
+    if (killMove) break;
+  }
+
+  if (killMove) {
+    console.log(`MOVE ${gameState.turn}: Hunting smaller snake via ${killMove}`);
+    return { move: killMove };
+  }
+
   if (food.length > 0) {
     let closestFood = null;
     let minFoodDist = Infinity;
